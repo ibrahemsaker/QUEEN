@@ -16,20 +16,38 @@
       <div id="items"></div>
       <div id="sum"></div>
       <div id="form" class="box">
-        <h3>بيانات التوصيل</h3>
-        <input id="nm" placeholder="الاسم" /><input
-          id="ph"
-          placeholder="رقم الموبايل"
-          type="tel"
-        /><select id="ty">
-          <option>توصيل</option>
-          <option>استلام من الفرع</option></select
-        ><input id="ad" placeholder="العنوان" /><textarea
+        <h3>بيانات الطلب</h3>
+        <label for="serviceType">نوع الطلب</label>
+        <select id="serviceType">
+          <option value="dine-in">صالة</option>
+          <option value="takeaway">تيك أواي</option>
+        </select>
+        <div id="dine-in-fields" class="order-option">
+          <label for="tableNumber">رقم الطاولة</label>
+          <input id="tableNumber" type="number" min="1" step="1" placeholder="رقم الطاولة" />
+        </div>
+        <div id="takeaway-fields" class="order-option" hidden>
+          <label for="takeawayType">طريقة الاستلام</label>
+          <select id="takeawayType">
+            <option value="delivery">توصيل</option>
+            <option value="pickup">استلام من المكان</option>
+          </select>
+          <div id="delivery-fields" class="order-option">
+            <label for="ad">عنوان التوصيل</label>
+            <input id="ad" placeholder="عنوان التوصيل" />
+          </div>
+        </div>
+        <label for="nm">الاسم</label>
+        <input id="nm" placeholder="الاسم" />
+        <label for="ph">رقم الموبايل للتواصل</label>
+        <input id="ph" placeholder="رقم الموبايل" type="tel" />
+        <label for="nt">ملاحظات إضافية</label>
+        <textarea
           id="nt"
           rows="2"
           placeholder="ملاحظات عامة"
-        ></textarea
-        ><button class="btn" id="go" style="width: 100%; margin-top: 1rem">
+        ></textarea>
+        <button class="btn" id="go" style="width: 100%; margin-top: 1rem">
           تأكيد الطلب وإرسال عبر واتساب
         </button>
       </div>

@@ -172,7 +172,8 @@ body {
 }
 .home {
   display: flex;
-  height: 90vh;
+  height: 100vh;
+  height: 100dvh;
 }
 .panel {
   flex: 1;
@@ -190,6 +191,27 @@ body {
 .panel + .panel {
   border-inline-start: 2px solid var(--g);
   animation-delay: 0.2s;
+}
+.home.is-selecting {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+.home.is-selecting .panel {
+  position: absolute;
+  inset: 0;
+  flex: none;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+  transform-origin: top left;
+  transition: opacity 0.2s ease;
+}
+.home.is-selecting .panel.selected {
+  opacity: 1;
+  pointer-events: auto;
+  animation: home-expand 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 .panel:hover {
   flex: 1.5;
@@ -504,6 +526,12 @@ body {
   align-items: center;
   gap: 0.6rem;
 }
+.card.in-cart .q {
+  display: none;
+}
+.card.in-cart input {
+  visibility: hidden;
+}
 .q button {
   width: 28px;
   height: 28px;
@@ -553,12 +581,31 @@ textarea {
   margin-top: 0.6rem;
   padding: 0.5rem;
 }
+.card .btn.remove-btn {
+  background: linear-gradient(135deg, #ff8585, #d62828);
+  color: #fff;
+}
+.card .btn.remove-btn:hover {
+  box-shadow: 0 8px 20px rgba(214, 40, 40, 0.4);
+}
 .box {
   background: var(--b2);
   border: 1px solid rgba(201, 162, 75, 0.25);
   border-radius: 14px;
   padding: 1.2rem;
   margin-top: 1.4rem;
+}
+.box label {
+  display: block;
+  margin-top: 0.8rem;
+  color: #dedbd4;
+  font-size: 0.9rem;
+}
+.order-option {
+  margin-top: 0.5rem;
+}
+.order-option[hidden] {
+  display: none;
 }
 .ci {
   display: flex;
@@ -579,9 +626,20 @@ textarea {
 }
 .ci > div:nth-child(2) {
   flex: 1;
+  min-width: 0;
 }
 .ci small {
   color: #999;
+}
+.ci .cart-note-label {
+  display: block;
+  margin-top: 0.4rem;
+  color: #aaa;
+  font-size: 0.78rem;
+}
+.ci .cart-note {
+  margin-top: 0.25rem;
+  padding: 0.45rem 0.6rem;
 }
 .x {
   background: none;
@@ -801,6 +859,15 @@ footer.site-footer::before {
     transform: scale(0.9) translateY(20px);
   }
 }
+@keyframes home-expand {
+  from {
+    transform: translate(var(--start-x), var(--start-y))
+      scale(var(--start-scale-x), var(--start-scale-y));
+  }
+  to {
+    transform: translate(0, 0) scale(1);
+  }
+}
 @keyframes spin {
   to {
     transform: rotateY(360deg);
@@ -816,6 +883,12 @@ footer.site-footer::before {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .home.is-selecting .panel {
+    transition: none;
+  }
+  .home.is-selecting .panel.selected {
+    animation: none;
+  }
   .nav .logo::before {
     display: none;
   }
