@@ -1,4 +1,4 @@
-const WA = "201000000000"; // ← ضع رقم الواتساب هنا بصيغة دولية بدون +
+const WA = "201129352754";
 const INFO = "📍 العنوان هنا · 📞 01000000000 · 🕒 يوميًا 10 ص – 2 ص";
 const SOCIAL_LINKS = {
   facebook: "https://www.facebook.com/your-page",
@@ -122,6 +122,16 @@ const OFFERS = [
 ];
 const $ = (s) => document.querySelector(s),
   P = document.body.dataset.page;
+const escapeHtml = (value) =>
+  String(value).replace(/[&<>"']/g, (character) =>
+    ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    })[character],
+  );
 const get = () => JSON.parse(localStorage.getItem("qc") || "[]"),
   set = (c) => {
     localStorage.setItem("qc", JSON.stringify(c));
@@ -141,15 +151,37 @@ const toast = (t) => {
   e.classList.add("on");
   setTimeout(() => e.classList.remove("on"), 1600);
 };
-document.body.insertAdjacentHTML(
-  "afterbegin",
-  `<nav class="nav"><div class="nav-links"><a href="restaurant.html" class="${P == "restaurant" ? "on" : ""}">المطعم</a><a href="cafe.html" class="${P == "cafe" ? "on" : ""}">الكافيه</a><a href="offers.html" class="${P == "offers" ? "on" : ""}">العروض</a></div><a class="logo" href="index.html" aria-label="الصفحة الرئيسية"><img src="img/logo.jpeg" alt="Queen"></a><div class="nav-actions"><a class="cart-link ${P == "cart" ? "on" : ""}" href="cart.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L21 9H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span>السلة</span><span class="bdg">0</span></a></div></nav>`,
-);
-document.body.insertAdjacentHTML(
-  "beforeend",
-  `<footer class="site-footer"><div class="footer-shell"><div class="footer-main"><section class="footer-brand"><a class="footer-wordmark" href="index.html">QUEEN<span>✦</span></a><p>مطعم وكافيه يجمع بين المذاق المميز واللحظات الجميلة.</p><div class="footer-info">${INFO}</div></section><section class="footer-follow"><h2>تابعونا على</h2><p>يسعدنا تواصلكم ومشاركة لحظاتكم معنا</p><div class="footer-socials"><a href="${SOCIAL_LINKS.facebook}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8z"/></svg></a><a href="${SOCIAL_LINKS.instagram}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="ig-dot" cx="17.7" cy="6.8" r="1"/></svg></a></div></section></div><div class="footer-bottom"><span class="footer-copy">© ${new Date().getFullYear()} Queen · جميع الحقوق محفوظة</span><div class="footer-credit"><span class="credit-mark">RC</span><span><small>تصميم وتطوير</small><strong>Rief Code</strong></span></div></div></div></footer>`,
-);
+if (P !== "home") {
+  document.body.insertAdjacentHTML(
+    "afterbegin",
+    `<nav class="nav"><div class="nav-links"><a href="restaurant.html" class="${P == "restaurant" ? "on" : ""}">المطعم</a><a href="cafe.html" class="${P == "cafe" ? "on" : ""}">الكافيه</a><a href="offers.html" class="${P == "offers" ? "on" : ""}">العروض</a></div><a class="logo" href="index.html" aria-label="الصفحة الرئيسية"><img src="img/logo.jpeg" alt="Queen"></a><div class="nav-actions"><a class="cart-link ${P == "cart" ? "on" : ""}" href="cart.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L21 9H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span>السلة</span><span class="bdg">0</span></a></div></nav>`,
+  );
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `<footer class="site-footer"><div class="footer-shell"><div class="footer-main"><section class="footer-brand"><a class="footer-wordmark" href="index.html">QUEEN<span>✦</span></a><p>مطعم وكافيه يجمع بين المذاق المميز واللحظات الجميلة.</p><div class="footer-info">${INFO}</div></section><section class="footer-follow"><h2>تابعونا على</h2><p>يسعدنا تواصلكم ومشاركة لحظاتكم معنا</p><div class="footer-socials"><a href="${SOCIAL_LINKS.facebook}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8z"/></svg></a><a href="${SOCIAL_LINKS.instagram}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="ig-dot" cx="17.7" cy="6.8" r="1"/></svg></a></div></section></div><div class="footer-bottom"><span class="footer-copy">© ${new Date().getFullYear()} Queen · جميع الحقوق محفوظة</span><div class="footer-credit"><span class="credit-mark">RC</span><span><small>تصميم وتطوير</small><strong>Rief Code</strong></span></div></div></div></footer>`,
+  );
+}
 count();
+const home = $(".home");
+if (home) {
+  home.addEventListener("click", (e) => {
+    const panel = e.target.closest(".panel");
+    if (!panel || !home.contains(panel)) return;
+    e.preventDefault();
+    if (home.classList.contains("is-selecting")) return;
+    const bounds = panel.getBoundingClientRect();
+    panel.style.setProperty("--start-x", `${bounds.left}px`);
+    panel.style.setProperty("--start-y", `${bounds.top}px`);
+    panel.style.setProperty("--start-scale-x", bounds.width / window.innerWidth);
+    panel.style.setProperty("--start-scale-y", bounds.height / window.innerHeight);
+    home.classList.add("is-selecting");
+    panel.classList.add("selected");
+    window.setTimeout(
+      () => window.location.assign(panel.href),
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700,
+    );
+  });
+}
 document.addEventListener("mousemove", (e) => {
   const t = e.target.closest(".tilt,.card");
   document.querySelectorAll(".tilt,.card").forEach((x) => {
@@ -200,10 +232,23 @@ function menu(type) {
       c.items
         .map(
           (x, i) =>
-            `<article class="card" data-id="${x[0]}" style="animation-delay:${i * 0.1}s"><img src="${img(x[4])}" alt="${x[1]}" loading="lazy"><div class="bd"><h3>${x[1]}</h3><p>${x[2]}</p><div class="row"><span class="price">${x[3]} ج.م</span><div class="q"><button data-a="-">−</button><b>1</b><button data-a="+">+</button></div></div><input placeholder="ملاحظات (بدون بصل...)"><button class="btn" data-a="add">أضف للسلة</button></div></article>`,
+            `<article class="card" data-id="${x[0]}" style="animation-delay:${i * 0.1}s"><img src="${img(x[4])}" alt="${x[1]}" loading="lazy"><div class="bd"><h3>${x[1]}</h3><p>${x[2]}</p><div class="row"><span class="price">${x[3]} ج.م</span><div class="q"><button data-a="-">−</button><b>1</b><button data-a="+">+</button></div></div><input placeholder="ملاحظات (${type == "cafe" ? "بدون صوصات..." : "بدون بصل..."})"><button class="btn" data-a="add">أضف للسلة</button></div></article>`,
         )
         .join("") +
       "</div>";
+    mn.querySelectorAll(".card").forEach((card) => {
+      const cartItem = get().find(
+        (item) => item.id == card.dataset.id && item.type == type,
+      );
+      if (cartItem) {
+        card.classList.add("in-cart");
+        card.querySelector("input").value = cartItem.note || "";
+        const button = card.querySelector('[data-a="add"]');
+        button.dataset.a = "remove";
+        button.classList.add("remove-btn");
+        button.textContent = "إزالة من السلة";
+      }
+    });
   }
   sb.onclick = (e) => {
     const b = e.target.closest("button");
@@ -213,6 +258,20 @@ function menu(type) {
     const a = e.target.dataset.a,
       cd = e.target.closest(".card");
     if (!a) return;
+    if (a == "remove") {
+      set(
+        get().filter(
+          (item) => !(item.id == cd.dataset.id && item.type == type),
+        ),
+      );
+      cd.classList.remove("in-cart");
+      const button = cd.querySelector('[data-a="remove"]');
+      button.dataset.a = "add";
+      button.classList.remove("remove-btn");
+      button.textContent = "أضف للسلة";
+      toast("تمت الإزالة من السلة");
+      return;
+    }
     const q = cd.querySelector(".q b");
     if (a == "+") q.textContent = +q.textContent + 1;
     if (a == "-") q.textContent = Math.max(1, q.textContent - 1);
@@ -221,6 +280,11 @@ function menu(type) {
         note = cd.querySelector("input").value.trim();
       addToCart(x, type, +q.textContent, note);
       q.textContent = 1;
+      cd.classList.add("in-cart");
+      const button = cd.querySelector('[data-a="add"]');
+      button.dataset.a = "remove";
+      button.classList.add("remove-btn");
+      button.textContent = "إزالة من السلة";
     }
   };
   show(0);
@@ -270,7 +334,7 @@ function cart() {
       ? c
           .map(
             (x, i) =>
-              `<div class="ci"><img src="${img(x.img)}"><div><b>${x.name}</b><br><small>${x.price} ج.م${x.note ? " · " + x.note : ""}</small></div><div class="q"><button data-i="${i}" data-a="-">−</button><b>${x.qty}</b><button data-i="${i}" data-a="+">+</button></div><button class="x" data-i="${i}" data-a="x">✕</button></div>`,
+              `<div class="ci"><img src="${img(x.img)}"><div><b>${x.name}</b><br><small>${x.price} ج.م</small><label class="cart-note-label" for="cart-note-${i}">ملاحظة المنتج</label><input class="cart-note" id="cart-note-${i}" data-note-index="${i}" value="${escapeHtml(x.note || "")}" placeholder="أضف ملاحظة للمنتج"></div><div class="q"><button data-i="${i}" data-a="-">−</button><b>${x.qty}</b><button data-i="${i}" data-a="+">+</button></div><button class="x" data-i="${i}" data-a="x">✕</button></div>`,
           )
           .join("")
       : "<p>السلة فارغة. <a href='restaurant.html' style='color:var(--g)'>تصفح المطعم</a></p>";
@@ -290,39 +354,85 @@ function cart() {
     set(c);
     draw();
   };
+  $("#items").addEventListener("input", (e) => {
+    const index = e.target.dataset.noteIndex;
+    if (index === undefined) return;
+    const c = get();
+    if (!c[index]) return;
+    c[index].note = e.target.value;
+    set(c);
+  });
+  const updateDeliveryFields = () => {
+    $("#delivery-fields").hidden = $("#takeawayType").value != "delivery";
+  };
+  const updateOrderFields = () => {
+    const isDineIn = $("#serviceType").value == "dine-in";
+    $("#dine-in-fields").hidden = !isDineIn;
+    $("#takeaway-fields").hidden = isDineIn;
+    updateDeliveryFields();
+  };
+  $("#serviceType").addEventListener("change", updateOrderFields);
+  $("#takeawayType").addEventListener("change", updateDeliveryFields);
+  updateOrderFields();
   $("#go").onclick = () => {
     const n = $("#nm").value.trim(),
       p = $("#ph").value.trim();
     if (!n || !p) return toast("اكتب الاسم والموبايل");
+    const mode = $("#serviceType").value,
+      takeawayType = $("#takeawayType").value,
+      tableNumber = $("#tableNumber").value.trim(),
+      address = $("#ad").value.trim();
+    if (
+      mode == "dine-in" &&
+      (!tableNumber ||
+        !Number.isInteger(Number(tableNumber)) ||
+        Number(tableNumber) < 1)
+    )
+      return toast("اكتب رقم طاولة صحيح");
+    if (mode == "takeaway" && takeawayType == "delivery" && !address)
+      return toast("اكتب عنوان التوصيل");
     const c = get(),
+      orderDetails =
+        mode == "dine-in"
+          ? [`نوع الطلب: صالة`, `رقم الطاولة: ${tableNumber}`]
+          : [
+              `نوع الطلب: تيك أواي`,
+              `طريقة الاستلام: ${takeawayType == "delivery" ? "توصيل" : "استلام من المكان"}`,
+              ...(takeawayType == "delivery" ? [`العنوان: ${address}`] : []),
+            ],
       L = [
-        "*طلب جديد من Queen* 👑",
+        "*طلب جديد من Queen*",
         `الاسم: ${n}`,
         `الموبايل: ${p}`,
-        `النوع: ${$("#ty").value}`,
-        `العنوان: ${$("#ad").value}`,
+        ...orderDetails,
         "",
       ];
     [
-      ["restaurant", "🍽 المطعم"],
-      ["cafe", "☕ الكافيه"],
+      ["restaurant", "المطعم"],
+      ["cafe", "الكافيه"],
     ].forEach(([t, h]) => {
       const s = c.filter((x) => x.type == t);
       if (s.length) {
         L.push("*" + h + "*");
         s.forEach((x) =>
           L.push(
-            `• ${x.name} × ${x.qty} = ${x.price * x.qty} ج.م${x.note ? " (" + x.note + ")" : ""}`,
+            `- ${x.name} × ${x.qty} = ${x.price * x.qty} ج.م${x.note ? " (" + x.note + ")" : ""}`,
           ),
         );
       }
     });
     L.push("", `*الإجمالي: ${c.reduce((a, x) => a + x.price * x.qty, 0)} ج.م*`);
     if ($("#nt").value) L.push("ملاحظات: " + $("#nt").value);
-    window.open(
+    const whatsappWindow = window.open(
       `https://wa.me/${WA}?text=${encodeURIComponent(L.join("\n"))}`,
       "_blank",
     );
+    if (!whatsappWindow)
+      return toast("تعذر فتح واتساب. اسمح بالنوافذ المنبثقة ثم أعد المحاولة");
+    const destination =
+      c[c.length - 1].type == "cafe" ? "cafe.html" : "restaurant.html";
+    set([]);
+    window.location.assign(destination);
   };
   draw();
 }
